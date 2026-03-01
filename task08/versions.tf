@@ -1,17 +1,15 @@
 terraform {
-  required_version = ">= 1.0.0"
+  required_version = ">= 1.5.7"
 
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.0"
+      version = ">= 3.110.0, < 4.0.0"
     }
-    # Required for deploying manifests (Deployment, Service, SecretProviderClass)
     kubectl = {
       source  = "alekc/kubectl"
       version = ">= 1.14.0"
     }
-    # Required for the Data Source to get the Load Balancer IP
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "~> 2.0"
