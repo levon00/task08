@@ -1,45 +1,49 @@
 variable "name" {
+  description = "The name of the AKS cluster."
   type        = string
-  description = "name of aks cluster"
 }
+
 variable "location" {
+  description = "The location/region where the AKS cluster will be deployed."
   type        = string
-  description = "location of aks cluster"
 }
+
 variable "rg_name" {
+  description = "The name of the resource group that will contain the AKS cluster."
   type        = string
-  description = "name of resource group"
 }
+
 variable "node_pool_name" {
+  description = "The name of the node pool within the AKS cluster."
   type        = string
-  description = "name of node pool"
 }
+
 variable "node_count" {
+  description = "The number of nodes in the node pool."
   type        = number
-  description = "number of nodes in node pool"
 }
-variable "node_size" {
+
+variable "vm_size" {
+  description = "The size of the virtual machines in the node pool."
   type        = string
-  description = "size of nodes in node pool"
 }
-variable "os_disk_type" {
+
+variable "disk_type" {
+  description = "The type of disk to use for the virtual machines in the node pool."
   type        = string
-  description = "os disk type for nodes in node pool"
 }
+variable "acr_id" {
+  description = "The ID of the Azure Container Registry."
+  type        = string
+}
+
+variable "kv_id" {
+  description = "The ID of the Key Vault."
+  type        = string
+}
+
 variable "tags" {
   type        = map(string)
-  description = "tags for all resources"
+  description = "A map of tags for the resource."
 }
-variable "container_registry_id" {
-  type        = string
-  description = "id of container registry"
-}
-variable "key_vault_id" {
-  type        = string
-  description = "id of key vault"
-}
-variable "tenant_id" {
-  type        = string
-  description = "tenant id"
-}
-  
+

@@ -1,37 +1,55 @@
-resource "azurerm_container_group" "container_group" {
+resource "azurerm_container_group" "this" {
   name                = var.name
   location            = var.location
   resource_group_name = var.rg_name
+  dns_name_label      = "dns-${var.name}"
+  ip_address_type     = "Public"
   os_type             = "Linux"
   sku                 = var.sku
-  ip_address_type     = "Public"
-  dns_name_label      = var.dns_name_label
-
-  image_registry_credential {
-    server   = var.login_server
-    username = var.admin_username
-    password = var.admin_password
-  }
-  container {
-    name   = var.container_name
-    image  = "${var.login_server}/${var.docker_image}:latest"
-    cpu    = "1.0"
-    memory = "1.5"
-
-    ports {
-      port     = "80"
-      protocol = "TCP"
-    }
-    environment_variables = {
-      "CREATOR"        = "ACI"
-      "REDIS_PORT"     = "6380"
-      "REDIS_SSL_MODE" = "True"
-    }
-    secure_environment_variables = {
-      "REDIS_URL" = var.redis_hostname_value
-      "REDIS_PWD" = var.redis_key_value
-    }
-  }
 
   tags = var.tags
+
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [var.identity_id]
+  }
+
+  image_registry_credential {
+    server                    = var.acr_server
+    user_assigned_identity_id = var.identity_id
+
+  }
+
+  container {
+    name  = var.container_name
+    image = "${var.acr_server}/${var.image}"
+
+    cpu    = "0.5"
+    memory = "1.5"
+
+    environment_variables = var.env_vars
+
+
+    secure_environment_variables = {
+      REDIS_URL = data.azurerm_key_vault_secret.redis_hostname.value
+      REDIS_PWD = data.azurerm_key_vault_secret.redis_password.value
+    }
+
+    ports {
+      port     = 8080
+      protocol = "TCP"
+    }
+  }
 }
+
+data "azurerm_key_vault_secret" "redis_hostname" {
+  name         = var.redis_hostname_secret_name
+  key_vault_id = var.keyvault_id
+}
+
+data "azurerm_key_vault_secret" "redis_password" {
+  name         = var.redis_password_secret_name
+  key_vault_id = var.keyvault_id
+}
+
+

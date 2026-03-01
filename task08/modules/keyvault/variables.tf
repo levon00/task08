@@ -1,28 +1,24 @@
 variable "name" {
+  description = "The name of the Key Vault."
   type        = string
-  description = "name of key vault"
 }
+
 variable "location" {
+  description = "The location/region where the Key Vault will be created."
   type        = string
-  description = "location of key vault"
 }
+
 variable "rg_name" {
+  description = "The name of the resource group that will contain the Key Vault."
   type        = string
-  description = "name of resource group"
 }
-variable "tenant_id" {
+
+variable "sku" {
+  description = "The SKU (pricing tier) of the Key Vault."
   type        = string
-  description = "tenant id for key vault"
 }
-variable "sku_name" {
-  type        = string
-  description = "sku of key vault"
-}
-variable "object_id" {
-  type        = string
-  description = "object id for key vault access policy"
-}
+
 variable "tags" {
   type        = map(string)
-  description = "tags for key vault"
+  description = "A map of tags for the resource."
 }

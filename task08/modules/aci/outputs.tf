@@ -1,4 +1,5 @@
 output "fqdn" {
-  value       = azurerm_container_group.container_group.fqdn
-  description = "fully qualified domain name for container group"
+  description = "Fully Qualified Domain Name (FQDN) for the deployed container in Azure Container Instance"
+  value       = azurerm_container_group.this.fqdn
+  sensitive   = true
 }

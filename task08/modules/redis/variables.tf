@@ -1,40 +1,51 @@
 variable "name" {
+  description = "The name of the Redis instance"
   type        = string
-  description = "name of redis cache"
 }
+
 variable "location" {
+  description = "The location/region where the Redis instance will be deployed"
   type        = string
-  description = "location of redis cache"
 }
+
 variable "rg_name" {
+  description = "The name of the resource group"
   type        = string
-  description = "name of resource group"
 }
+
 variable "capacity" {
+  description = "The capacity of the Redis instance"
   type        = number
-  description = "capacity of redis cache"
 }
+
 variable "family" {
+  description = "The family of the Redis cache"
   type        = string
-  description = "family of redis cache"
 }
-variable "sku_name" {
+
+variable "sku" {
+  description = "The SKU of the Redis instance"
   type        = string
-  description = "sku of redis cache"
 }
-variable "key_vault_id" {
-  type        = string
-  description = "key vault id"
-}
+
+
 variable "redis_hostname_secret_name" {
+  description = "The secret name for the Redis hostname in Key Vault"
   type        = string
-  description = "secret name for redis hostname"
 }
-variable "secret_name_redis_key" {
+
+variable "redis_password_secret_name" {
+  description = "The secret name for the Redis primary key in Key Vault"
   type        = string
-  description = "secret name for redis key"
 }
+
+variable "kv_id" {
+  description = "The ID of the Key Vault"
+  type        = string
+
+}
+
 variable "tags" {
   type        = map(string)
-  description = "tags for redis cache"
+  description = "A map of tags for the resource."
 }

@@ -1,16 +1,24 @@
-resource "azurerm_key_vault" "keyvault" {
-  name                        = var.name
-  location                    = var.location
-  resource_group_name         = var.rg_name
-  tenant_id                   = var.tenant_id
-  sku_name                    = var.sku_name
-  enabled_for_disk_encryption = true
-  tags                        = var.tags
+resource "azurerm_key_vault" "this" {
+  name                = var.name
+  location            = var.location
+  resource_group_name = var.rg_name
+  sku_name            = var.sku
+  tenant_id           = data.azurerm_client_config.current.tenant_id
+  tags                = var.tags
 }
 
-resource "azurerm_key_vault_access_policy" "name" {
-  key_vault_id       = azurerm_key_vault.keyvault.id
-  tenant_id          = var.tenant_id
-  object_id          = var.object_id
-  secret_permissions = ["Get", "List", "Set", "Delete", "Backup", "Restore", "Recover"]
+data "azurerm_client_config" "current" {}
+
+resource "azurerm_key_vault_access_policy" "this" {
+  key_vault_id = azurerm_key_vault.this.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = data.azurerm_client_config.current.object_id
+
+  secret_permissions = [
+    "Get",
+    "List",
+    "Set",
+    "Delete",
+    "Recover"
+  ]
 }

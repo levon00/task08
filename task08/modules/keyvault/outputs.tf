@@ -1,8 +1,12 @@
-output "key_vault_name" {
-  value       = azurerm_key_vault.keyvault.name
-  description = "name of key vault"
+output "kv_id" {
+  value       = azurerm_key_vault.this.id
+  description = "Value of the key vault id"
+  sensitive   = true
 }
-output "key_vault_id" {
-  value       = azurerm_key_vault.keyvault.id
-  description = "id of key vault"
+
+
+output "tenant_id" {
+  value       = azurerm_key_vault.this.tenant_id
+  description = "Value of the tenant id"
+  sensitive   = true
 }

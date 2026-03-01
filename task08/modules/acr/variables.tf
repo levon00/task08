@@ -1,33 +1,41 @@
 variable "name" {
+  description = "The name of the Azure Container Registry"
   type        = string
-  description = "name of acr"
+
 }
-variable "location" {
-  type        = string
-  description = "location of all resource"
-}
+
 variable "rg_name" {
+  description = "The name of the resource group in which to create the Azure Container Registry"
   type        = string
-  description = "name of resource group"
 }
+
+variable "location" {
+  description = "The location in which to create the Azure Container Registry"
+  type        = string
+}
+
 variable "sku" {
+  description = "The SKU of the Azure Container Registry"
   type        = string
-  description = "sku of acr"
 }
-variable "img_task_name" {
+
+
+variable "context_path" {
+  description = "The path to the context of the Dockerfile"
   type        = string
-  description = "name of image task"
 }
+
 variable "git_pat" {
+  description = "The personal access token for the Git repository"
   type        = string
   sensitive   = true
-  description = "git access token"
 }
-variable "image_name" {
-  type        = string
-  description = "name of image"
-}
+
 variable "tags" {
   type        = map(string)
-  description = "tags for all resources"
+  description = "A map of tags for the resource."
+}
+variable "image_name" {
+  description = "The name of the image to build"
+  type        = string
 }

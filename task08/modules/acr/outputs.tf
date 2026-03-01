@@ -1,19 +1,17 @@
 output "acr_login_server" {
-  value       = azurerm_container_registry.acr.login_server
-  description = "login server value for container registry"
+  description = "The login server for the Azure Container Registry"
+  value       = azurerm_container_registry.this.login_server
+  sensitive   = true
+}
+
+output "identity_id" {
+  description = "The ID of the user-assigned identity."
+  value       = azurerm_user_assigned_identity.this.id
+  sensitive   = true
 }
 
 output "acr_id" {
-  value       = azurerm_container_registry.acr.id
-  description = "id of container registry"
-}
-
-output "admin_username" {
-  value       = azurerm_container_registry.acr.admin_username
-  description = "admin username for container registry"
-}
-output "admin_password" {
-  value       = azurerm_container_registry.acr.admin_password
+  description = "The ID of the Azure Container Registry."
+  value       = azurerm_container_registry.this.id
   sensitive   = true
-  description = "admin password for container registry"
 }
