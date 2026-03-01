@@ -22,5 +22,5 @@ output "principal_id" {
   value = azurerm_kubernetes_cluster.kube.identity[0].principal_id
 }
 output "node_resource_group" {
-  value       = azurerm_kubernetes_cluster.kube.node_resource_group
+  value = azurerm_kubernetes_cluster.kube.node_resource_group
 }

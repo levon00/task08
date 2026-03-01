@@ -41,7 +41,7 @@ module "redis" {
   redis_hostname_secret_name = var.secret_name_redis_hostname
   secret_name_redis_key      = var.secret_name_redis_key
   tags                       = var.tags
-  depends_on = [ module.keyvault]
+  depends_on                 = [module.keyvault]
 }
 
 module "aci" {
@@ -59,7 +59,7 @@ module "aci" {
   admin_username       = module.acr.admin_username
   admin_password       = module.acr.admin_password
   tags                 = var.tags
-  depends_on = [module.acr, module.redis] 
+  depends_on           = [module.acr, module.redis]
 }
 
 module "aks" {
@@ -75,7 +75,7 @@ module "aks" {
   key_vault_id          = module.keyvault.key_vault_id
   tenant_id             = data.azurerm_client_config.current.tenant_id
   tags                  = var.tags
-  depends_on = [ azurerm_resource_group.rg, module.acr, module.keyvault ]
+  depends_on            = [azurerm_resource_group.rg, module.acr, module.keyvault]
 }
 
 resource "kubectl_manifest" "secret_provider" {
@@ -103,7 +103,7 @@ resource "kubectl_manifest" "deployment" {
     }
   }
 
-  depends_on = [kubectl_manifest.secret_provider ]
+  depends_on = [kubectl_manifest.secret_provider]
 }
 
 resource "kubectl_manifest" "service" {
@@ -116,7 +116,7 @@ resource "kubectl_manifest" "service" {
       value_type = "regex"
     }
   }
-  depends_on = [ kubectl_manifest.deployment ]
+  depends_on = [kubectl_manifest.deployment]
 }
 
 data "kubernetes_service" "app_service" {
