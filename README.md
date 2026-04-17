@@ -24,6 +24,7 @@ The project is organized into reusable Terraform modules:
 
 .
 └── task08
+
     ├── application/             # Python Flask app, Dockerfile, and dependencies
     ├── k8s-manifests/           # Kubernetes YAML templates (Deployment, Service, Secret Provider)
     ├── modules/
